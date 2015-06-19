@@ -9,52 +9,52 @@ Result:nothing is returned, but the new linked list looks like a->b->d->e
 //import
 
 public class ElementRemover{
-public class Node{
-	char data;
-	Node next;
-
-	public Node(char p_data){
-		data = p_data;
-}
-
-protected boolean hasNext(){
-	return next != null;
-}
-
-protected Node getNext(){
-	return next;
-}
-
-protected char getData(){
-	return data;
-}
-
-protected void setData(char p_data){
-	data = p_data;
-}
-
-protected void setNext(Node p_next){
-	next = p_next;
-}
-
-protected void addTail(char p_data){
-	Node tail = this;
-	while(tail.hasNext())
-		tail = tail.getNext();
-	tail.setNext(new Node(p_data));
-}
-
-public String toString(){
-	return getData() + (hasNext()?("->"+getNext()):"");
-}
-}
+	public class Node{
+		char data;
+		Node next;
+	
+		public Node(char p_data){
+			data = p_data;
+		}
+		
+		protected boolean hasNext(){
+			return next != null;
+		}
+		
+		protected Node getNext(){
+			return next;
+		}
+		
+		protected char getData(){
+			return data;
+		}
+		
+		protected void setData(char p_data){
+			data = p_data;
+		}
+		
+		protected void setNext(Node p_next){
+			next = p_next;
+		}
+		
+		protected void addTail(char p_data){
+			Node tail = this;
+			while(tail.hasNext())
+				tail = tail.getNext();
+			tail.setNext(new Node(p_data));
+		}
+		
+		public String toString(){
+			return getData() + (hasNext()?("->"+getNext()):"");
+		}
+	}
 
 	public void removeNode(Node p_node){
-	if (p_node == null || !p_node.hasNext()) return;
-	p_node.setData(p_node.getNext().getData());
-	p_node.setNext(p_node.getNext().getNext());
+		if (p_node == null || !p_node.hasNext()) return;
+		p_node.setData(p_node.getNext().getData());
+		p_node.setNext(p_node.getNext().getNext());
 	
-}
+	}
 
 public static void main(String[] args){
 	ElementRemover er = new ElementRemover();
