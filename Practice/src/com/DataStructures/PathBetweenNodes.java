@@ -34,26 +34,26 @@ class PathBetweenNodes{
     }
 
     public boolean searchDFS(Node p_node, Node p_target){
-    if(p_node == null || p_target == null)
-        return false;
-	if(p_node.equals(p_target)){
-		System.out.println(" "+ p_node.data +" ");
-	    return true;
-    }
-    else{
-    p_node.wasVisited = true;
-    boolean isCorrectPath = false;
-    foreach(Node i_node in p_node.paths){
-	    if(i_node.wasVisited == false){
-	        isCorrectPath = searchDFS(i_node, p_target);
-	        if(isCorrectPath){
-	            System.out.println(" "+p_node.data+" ");
-	            return true;
-	        }
+	    if(p_node == null || p_target == null)
+	        return false;
+		if(p_node.equals(p_target)){
+			System.out.println(" "+ p_node.data +" ");
+		    return true;
 	    }
-    }
-return false;
-}
+	    else{
+	    p_node.wasVisited = true;
+	    boolean isCorrectPath = false;
+	    foreach(Node i_node in p_node.paths){
+		    if(i_node.wasVisited == false){
+		        isCorrectPath = searchDFS(i_node, p_target);
+		        if(isCorrectPath){
+		            System.out.println(" "+p_node.data+" ");
+		            return true;
+		        }
+		    }
+	    }
+	return false;
+	}
 }
 
 protected void findPath(Node p_node, Node p_target){
