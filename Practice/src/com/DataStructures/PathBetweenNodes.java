@@ -4,6 +4,7 @@ package com.DataStructures;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 //imports
 class PathBetweenNodes{
@@ -14,6 +15,12 @@ class PathBetweenNodes{
     
 	    public Node(char p_data){
 		    data = p_data;
+		    paths = new ArrayList<Node>();
+		    wasVisited = false;
+		}
+	    
+	    public Node(){
+		    data = ' ';
 		    paths = new ArrayList<Node>();
 		    wasVisited = false;
 		}
@@ -32,22 +39,23 @@ class PathBetweenNodes{
 		    	return false;
 		}
     }
+    
 
-    public boolean searchDFS(Node p_node, Node p_target){
+    public boolean searchDFS(Node p_node, Node p_target, Stack<Node> p_foundPath){
 	    if(p_node == null || p_target == null)
 	        return false;
 		if(p_node.equals(p_target)){
-			System.out.println(" "+ p_node.data +" ");
+			p_foundPath.push(p_node);
 		    return true;
 	    }
 	    else{
 	    p_node.wasVisited = true;
 	    boolean isCorrectPath = false;
-	    foreach(Node i_node in p_node.paths){
+	    for(Node i_node : p_node.paths){
 		    if(i_node.wasVisited == false){
-		        isCorrectPath = searchDFS(i_node, p_target);
+		        isCorrectPath = searchDFS(i_node, p_target, p_foundPath);
 		        if(isCorrectPath){
-		            System.out.println(" "+p_node.data+" ");
+		        	p_foundPath.push(p_node);
 		            return true;
 		        }
 		    }
@@ -55,25 +63,48 @@ class PathBetweenNodes{
 	return false;
 	}
 }
+    
+    protected void printPath(Stack<Node> p_stack){
+    	assert(!p_stack.isEmpty()):"I cannot print an empty queue";
+    	System.out.print(p_stack.pop().data);
+        while(!p_stack.isEmpty()){
+        	System.out.print(" -> " + p_stack.pop().data);
+        }
+        System.out.println();
+    }
 
-protected void findPath(Node p_node, Node p_target){
-    boolean found1 = searchDFS(p_node, p_target);
-    if(found1)
-        System.out.println("Found path from "
-+ p_node.data
-+ " to "
-+ p_target.data
-);
-        boolean found2 = searchDFS(p_target, p_node);
-if(found2)
-        System.out.println("Found path from "
-+ p_target.data
-+ " to "
-+ p_node.data
-);
+	protected void findPath(Node p_node, Node p_target){
+	    Stack<Node> foundPath = new Stack<Node>();
+		boolean found1 = searchDFS(p_node, p_target, foundPath);
+	    if(found1){
+	        System.out.println("Found path from "
+								+ p_node.data
+								+ " to "
+								+ p_target.data
+								);
+	        printPath(foundPath);
+	    }
+	    foundPath.clear();
+	    boolean found2 = searchDFS(p_target, p_node, foundPath);
+		if(found2){
+		        System.out.println("Found path from "
+									+ p_target.data
+									+ " to "
+									+ p_node.data
+									);
+		        printPath(foundPath);
+		}
         if(!(found1 || found2))
-            System.out.println("Any path found");
-}
+        	System.out.println("Any path found from " 
+        						+ p_target.data 
+        						+ " to " 
+        						+ p_node.data 
+        						+ " nor from " 
+        						+ p_node.data 
+        						+ " to " 
+        						+ p_target.data 
+        						);
+	}
 
 public static void main(String[] args){
     PathBetweenNodes pbn = new PathBetweenNodes();

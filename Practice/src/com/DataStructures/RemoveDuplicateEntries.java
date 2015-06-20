@@ -4,7 +4,7 @@ How would you solve this problem if a temporary buffer is not allowed?
 */
 package com.DataStructures;
 
-public class removeDuplicateEntries {
+public class RemoveDuplicateEntries {
 	public class Node{
 	int data;
 	Node next;
@@ -69,7 +69,7 @@ public String toString(){
 }
 
 public static void main(String[] args){
-	removeDuplicateEntries remDup = new removeDuplicateEntries();
+	RemoveDuplicateEntries remDup = new RemoveDuplicateEntries();
 	Node node = remDup.new Node(5);
 	node.addTail(1);
 	node.addTail(1);
